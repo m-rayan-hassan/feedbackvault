@@ -54,7 +54,7 @@ export async function POST(request: NextRequest) {
                 email,
                 password: hasedPassword,
                 verifyCode,
-                isVerified: false,
+                isVerified: true,
                 verifyCodeExpiry: expiryDate,
                 isAcceptingMessage: true,
                 message: [],
@@ -67,23 +67,13 @@ export async function POST(request: NextRequest) {
             email,
             username,
             verifyCode
-        );
-
-        if (!emailNextResponse.success) {
-            return NextResponse.json(
-                {
-                    success: false,
-                    message: emailNextResponse.message
-                },
-                { status: 500 }
-            );
-        }
+        ); 
 
         return NextResponse.json(
             {
                 success: true,
                 message:
-                    "User registered successfully. Please verify you email",
+                    "User registered successfully. Please Login",
             },
             { status: 201 }
         );

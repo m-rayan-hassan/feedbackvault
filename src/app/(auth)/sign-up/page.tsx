@@ -77,7 +77,7 @@ export default function SignUpForm() {
         description: response.data.message,
       });
 
-      router.replace(`/verify/${username}`);
+      router.replace("/sign-in");
 
       setIsSubmitting(false);
     } catch (error) {
@@ -186,9 +186,6 @@ export default function SignUpForm() {
                     className="bg-slate-800 border-slate-700 text-white placeholder-slate-500 focus:border-blue-500"
                     placeholder="Enter your email"
                   />
-                  <p className="text-slate-400 text-sm mt-1">
-                    We will send you a verification code
-                  </p>
                   <FormMessage />
                 </FormItem>
               )}
