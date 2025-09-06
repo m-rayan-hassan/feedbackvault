@@ -2,8 +2,9 @@ import dbConnect from "@/lib/dbConnect";
 import UserModel from "@/models/User";
 import bcrypt from "bcryptjs";
 import { sendVerificationEmail } from "@/helpers/sendVerificationEmail";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
     await dbConnect();
     try {
         const { username, email, password } = await request.json();
@@ -13,7 +14,7 @@ export async function POST(request: Request) {
         });
 
         if (existingUserVerifiedByUsername) {
-            return Response.json(
+            return NextResponse.json(
                 {
                     success: false,
                     message: "User is already taken",
@@ -29,7 +30,7 @@ export async function POST(request: Request) {
 
         if (existingUserByEmail) {
             if (existingUserByEmail.isVerified) {
-                return Response.json(
+                return NextResponse.json(
                     {
                         success: false,
                         message: "User already exists with this email"
@@ -62,23 +63,23 @@ export async function POST(request: Request) {
         }
 
         // send verification email
-        const emailResponse = await sendVerificationEmail(
+        const emailNextResponse = await sendVerificationEmail(
             email,
             username,
             verifyCode
         );
 
-        if (!emailResponse.success) {
-            return Response.json(
+        if (!emailNextResponse.success) {
+            return NextResponse.json(
                 {
                     success: false,
-                    message: emailResponse.message
+                    message: emailNextResponse.message
                 },
                 { status: 500 }
             );
         }
 
-        return Response.json(
+        return NextResponse.json(
             {
                 success: true,
                 message:
@@ -88,7 +89,7 @@ export async function POST(request: Request) {
         );
     } catch (error) {
         console.error("Error registering user", error);
-        return Response.json(
+        return NextResponse.json(
             {
                 success: false,
                 message: "Error registering user",

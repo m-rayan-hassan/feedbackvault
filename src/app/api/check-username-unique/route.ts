@@ -2,12 +2,13 @@ import dbConnect from "@/lib/dbConnect";
 import UserModel from "@/models/User";
 import {success, z} from "zod";
 import { usernameValidation } from "@/schemas/signUpSchema";
+import { NextRequest, NextResponse } from "next/server";
 
 const UsernameQuerySchema = z.object({
     username: usernameValidation
 });
 
-export async function GET(request: Request) {
+export async function GET(request: NextRequest) {
 
     await dbConnect();
     try {
@@ -20,7 +21,7 @@ export async function GET(request: Request) {
         
         if (!result.success) {
             const usernameErrors = result.error.format().username?._errors || [];
-            return Response.json({
+            return NextResponse.json({
                 success: false,
                 message: "Invalid query parameter"
             }, {status: 400});
@@ -29,20 +30,20 @@ export async function GET(request: Request) {
         const {username} = result.data;
         const existingVerifiedUser = await UserModel.findOne({username, isVerified: true});
         if (existingVerifiedUser) {
-            return Response.json({
+            return NextResponse.json({
                 success: false,
                 message: "Username is already taken"
             }, {status: 400});
         }
 
-            return Response.json({
+            return NextResponse.json({
                 success: true,
                 message: "Username is unique"
             }, {status: 200});
 
     } catch (error) {
         console.error("Error checking username", error);
-        return Response.json(
+        return NextResponse.json(
             {
                 success: false,
                 message: "Error checking username"

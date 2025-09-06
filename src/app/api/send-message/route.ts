@@ -1,14 +1,15 @@
 import dbConnect from "@/lib/dbConnect";
 import UserModel from "@/models/User";
 import { Message } from "@/models/User";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
     await dbConnect();
     const { username, content } = await request.json();
     try {
         const user = await UserModel.findOne({ username });
         if (!user) {
-            return Response.json(
+            return NextResponse.json(
                 {
                     success: false,
                     message: "User not found",
@@ -18,7 +19,7 @@ export async function POST(request: Request) {
         }
         // is user accepting messages
         if (!user.isAcceptingMessage) {
-             return Response.json(
+             return NextResponse.json(
                 {
                     success: false,
                     message: "User is not accepting messages",
@@ -31,7 +32,7 @@ export async function POST(request: Request) {
         user.message.push(newMessage as Message);
         await user.save();
 
-         return Response.json(
+         return NextResponse.json(
                 {
                     success: true,
                     message: "Message sent successfully",
@@ -40,7 +41,7 @@ export async function POST(request: Request) {
             );                      
     } catch (error) {
          
-         return Response.json(
+         return NextResponse.json(
                 {
                     success: false,
                     message: "Internal server error",

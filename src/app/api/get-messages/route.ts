@@ -4,14 +4,15 @@ import mongoose from "mongoose";
 import { User } from "next-auth";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "../auth/[...nextauth]/options";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(request: Request) {
+export async function GET(request: NextRequest) {
   await dbConnect();
   const session = await getServerSession(authOptions);
   const _user: User = session?.user;
 
   if (!session || !_user) {
-    return Response.json(
+    return NextResponse.json(
       { success: false, message: "Not authenticated" },
       { status: 401 }
     );
@@ -33,13 +34,13 @@ export async function GET(request: Request) {
     ]).exec();
 
     if (!user || user.length === 0) {
-      return Response.json(
+      return NextResponse.json(
         { message: "User not found", success: false },
         { status: 404 }
       );
     }
 
-    return Response.json(
+    return NextResponse.json(
       {
         messages: user[0].message.filter(Boolean),
         success: true,
@@ -47,7 +48,7 @@ export async function GET(request: Request) {
       { status: 200 }
     );
   } catch (error) {
-    return Response.json(
+    return NextResponse.json(
       { message: "Internal server error", success: false },
       { status: 500 }
     );

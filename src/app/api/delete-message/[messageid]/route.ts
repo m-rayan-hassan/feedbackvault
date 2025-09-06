@@ -1,19 +1,24 @@
 import { getServerSession } from "next-auth";
+import { NextRequest, NextResponse } from "next/server";
 import { authOptions } from "../../auth/[...nextauth]/options";
 import dbConnect from "@/lib/dbConnect";
 import UserModel from "@/models/User";
 import { User } from "next-auth";
 
 export async function DELETE(
-    request: Request,
-    { params }: { params: { messageid: string } }
+    request: NextRequest,
+    { params }: { params: Promise<{ messageid: string }> }
 ) {
-    const messageId = params.messageid;
+    // Await the params promise
+    const { messageid } = await params;
+    const messageId = messageid;
+    
     await dbConnect();
     const session = await getServerSession(authOptions);
-    const user: User = session?.user;
+    const user: User = session?.user as User;
+    
     if (!session || !session.user) {
-        return Response.json(
+        return NextResponse.json(
             {
                 success: false,
                 message: "Not Authenticated",
@@ -27,8 +32,9 @@ export async function DELETE(
             { _id: user._id },
             { $pull: { message: { _id: messageId } } }
         );
+        
         if (updateResult.modifiedCount == 0) {
-            return Response.json(
+            return NextResponse.json(
                 {
                     success: false,
                     message: "Message not found or already deleted",
@@ -36,20 +42,21 @@ export async function DELETE(
                 { status: 404 }
             );
         }
-         return Response.json(
+        
+        return NextResponse.json(
             {
                 success: true,
                 message: "Message deleted",
             },
-            { status: 201 }
+            { status: 200 } // Changed from 201 to 200 (201 is for created, 200 for success)
         );
     } catch (error) {
-        console.log("Error in delete message route");
+        console.log("Error in delete message route:", error);
         
-         return Response.json(
+        return NextResponse.json(
             {
                 success: false,
-                message: "Error deleteting message",
+                message: "Error deleting message",
             },
             { status: 500 }
         );

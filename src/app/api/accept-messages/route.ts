@@ -3,13 +3,14 @@ import { authOptions } from "../auth/[...nextauth]/options";
 import dbConnect from "@/lib/dbConnect";
 import UserModel from "@/models/User";
 import { User } from "next-auth";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
     await dbConnect();
     const session = await getServerSession(authOptions);
     const user: User = session?.user;
     if (!session || !session.user) {
-        return Response.json(
+        return NextResponse.json(
             {
                 success: false,
                 message: "Not Authenticated",
@@ -27,7 +28,7 @@ export async function POST(request: Request) {
             { new: true }
         );
         if (!updatedUser) {
-            return Response.json(
+            return NextResponse.json(
                 {
                     success: false,
                     message: "Failed not find user",
@@ -36,7 +37,7 @@ export async function POST(request: Request) {
             );
         }
 
-        return Response.json(
+        return NextResponse.json(
             {
                 success: true,
                 message: "Message acceptance status updated successfully",
@@ -44,7 +45,7 @@ export async function POST(request: Request) {
             { status: 201 }
         );
     } catch (error) {
-        return Response.json(
+        return NextResponse.json(
             {
                 success: false,
                 message: "Failed to update user status to accept messages",
@@ -59,7 +60,7 @@ export async function GET(request: Request) {
     const session = await getServerSession(authOptions);
     const user: User = session?.user;
     if (!session || !session.user) {
-        return Response.json(
+        return NextResponse.json(
             {
                 success: false,
                 message: "Not Authenticated",
@@ -72,7 +73,7 @@ export async function GET(request: Request) {
     try {
         const foundUser = await UserModel.findById(userId);
         if (!foundUser) {
-            return Response.json(
+            return NextResponse.json(
                 {
                     success: false,
                     message: "User not found",
@@ -80,7 +81,7 @@ export async function GET(request: Request) {
                 { status: 404 }
             );
         }
-        return Response.json(
+        return NextResponse.json(
             {
                 success: true,
                 isAcceptingMessage: foundUser.isAcceptingMessage,
@@ -88,7 +89,7 @@ export async function GET(request: Request) {
             { status: 200 }
         );
     } catch (error) {
-        return Response.json(
+        return NextResponse.json(
             {
                 success: false,
                 message: "Error in getting message accepting status",

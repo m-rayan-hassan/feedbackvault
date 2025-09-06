@@ -1,10 +1,10 @@
 import { google } from "@ai-sdk/google";
 import { generateText } from "ai";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 export const runtime = "edge";
 
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
   try {
     const prompt = `Generate a list of three engaging and anonymous prompts formatted as a single string. Each prompt must be separated by "||". These prompts are for an anonymous social feedback and question platform (like NGL or Qooh.me) where users can send feedback or questions but cannot reply back.  
 
