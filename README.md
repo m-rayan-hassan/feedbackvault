@@ -1,36 +1,155 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+FeedbackVault 🔒
+An anonymous messaging platform built with Next.js that allows users to receive honest feedback without revealing identities. Send and receive messages completely anonymously!
 
-## Getting Started
+https://thefeedbackvault.vercel.app/
 
-First, run the development server:
+🌟 Features
+100% Anonymous Messaging - Send messages without registration or identification
 
-```bash
+AI-Powered Suggestions - Gemini API generates thoughtful message suggestions
+
+Secure Authentication - NextAuth with credential-based login system
+
+Real-time Management - Easy message management dashboard
+
+Modern UI/UX - Beautiful dark/light interface built with Tailwind CSS and Shadcn/UI
+
+Email Verification - Resend integration for secure account verification
+
+🛠️ Tech Stack
+Framework: Next.js (Full-stack)
+
+Language: TypeScript
+
+Database: MongoDB with Mongoose ODM
+
+Authentication: NextAuth.js
+
+Styling: Tailwind CSS + Shadcn/UI
+
+Validation: Zod
+
+AI: Google Gemini API
+
+Emails: Resend
+
+Deployment: Vercel
+
+🚀 Getting Started
+Prerequisites
+Node.js 18+
+
+MongoDB Atlas account or local MongoDB instance
+
+Google Gemini API key
+
+Resend API key (for email functionality)
+
+Installation
+Clone the repository
+
+bash
+git clone https://github.com/m-rayan-hassan/feedbackvault.git
+cd feedbackvault
+Install dependencies
+
+bash
+npm install
+Environment Setup
+Create a .env.local file in the root directory:
+
+env
+MONGODB_URI=your_mongodb_connection_string
+NEXTAUTH_SECRET=your_nextauth_secret
+NEXTAUTH_URL=http://localhost:3000
+GEMINI_API_KEY=your_gemini_api_key
+RESEND_API_KEY=your_resend_api_key
+Run the development server
+
+bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Open your browser
+Navigate to http://localhost:3000
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+📖 Usage
+For Receivers
+Create an account on FeedbackVault
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Share your unique profile link (e.g., feedbackvault.com/u/yourusername)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Receive anonymous messages from anyone with your link
 
-## Learn More
+For Senders
+Visit any user's FeedbackVault link
 
-To learn more about Next.js, take a look at the following resources:
+Type your anonymous message (no registration needed)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Use AI suggestions for message ideas
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Send your message - it's completely untraceable!
 
-## Deploy on Vercel
+🏗️ Project Structure
+📦 src
+ ┣ 📂 app
+ ┃ ┣ 📂 (app)          # Protected routes
+ ┃ ┃ ┣ 📂 dashboard
+ ┃ ┃ ┣ 📜 layout.tsx
+ ┃ ┃ ┗ 📜 page.tsx
+ ┃ ┣ 📂 (auth)         # Authentication routes
+ ┃ ┃ ┣ 📂 sign-in
+ ┃ ┃ ┣ 📂 sign-up
+ ┃ ┃ ┗ 📂 verify/[username]
+ ┃ ┣ 📂 api            # API endpoints
+ ┃ ┃ ┣ 📂 auth/[...nextauth]
+ ┃ ┃ ┣ 📂 accept-messages
+ ┃ ┃ ┣ 📂 check-username-unique
+ ┃ ┃ ┣ 📂 delete-message/[messageid]
+ ┃ ┃ ┣ 📂 get-messages
+ ┃ ┃ ┣ 📂 get-users
+ ┃ ┃ ┣ 📂 send-message
+ ┃ ┃ ┣ 📂 sign-up
+ ┃ ┃ ┣ 📂 suggest-messages
+ ┃ ┃ ┗ 📂 verify-code
+ ┃ ┣ 📂 u/[username]   # Public user profiles
+ ┃ ┣ 📜 globals.css
+ ┃ ┗ 📜 layout.tsx
+ ┣ 📂 components
+ ┃ ┣ 📂 ui            # Shadcn/UI components
+ ┃ ┃ ┣ 📜 alert-dialog.tsx
+ ┃ ┃ ┣ 📜 button.tsx
+ ┃ ┃ ┣ 📜 card.tsx
+ ┃ ┃ ┣ 📜 carousel.tsx
+ ┃ ┃ ┣ 📜 form.tsx
+ ┃ ┃ ┗ 📜 ... (other UI components)
+ ┃ ┣ 📜 MessageCard.tsx
+ ┃ ┣ 📜 Navbar.tsx
+ ┃ ┗ 📜 background.tsx
+ ┣ 📂 lib
+ ┃ ┣ 📜 dbConnect.ts
+ ┃ ┣ 📜 resend.ts
+ ┃ ┗ 📜 utils.ts
+ ┣ 📂 models
+ ┃ ┗ 📜 User.ts
+ ┣ 📂 schemas         # Zod validation schemas
+ ┃ ┣ 📜 acceptMessageSchema.ts
+ ┃ ┣ 📜 signInSchema.ts
+ ┃ ┣ 📜 signUpSchema.ts
+ ┃ ┗ 📜 verifySchema.ts
+ ┣ 📂 types           # TypeScript definitions
+ ┃ ┣ 📜 ApiResponse.ts
+ ┃ ┗ 📜 next-auth.d.ts
+ ┣ 📜 messages.json   # Sample messages
+ ┗ 📜 middleware.ts   # Next.js middleware
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+🔧 API Endpoints
+POST /api/sign-up - User registration
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+POST /api/verify-code - Email verification
+
+POST /api/send-message - Send anonymous messages
+
+GET /api/get-messages - Retrieve user messages
+
+POST /api/suggest-messages - AI message suggestions
+
+DELETE /api/delete-message - Delete messages
