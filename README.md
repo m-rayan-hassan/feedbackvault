@@ -2,8 +2,6 @@
 
 An anonymous messaging platform built with **Next.js** that allows users to receive honest feedback without revealing identities. Send and receive messages completely anonymously!  
 
-![FeedbackVault Banner](https://thefeedbackvault.vercel.app)  
-
 
 ## 🌟 Features  
 
