@@ -1,92 +1,101 @@
-FeedbackVault 🔒
-An anonymous messaging platform built with Next.js that allows users to receive honest feedback without revealing identities. Send and receive messages completely anonymously!
+# 🔒 FeedbackVault  
 
-https://thefeedbackvault.vercel.app/
+An anonymous messaging platform built with **Next.js** that allows users to receive honest feedback without revealing identities. Send and receive messages completely anonymously!  
 
-🌟 Features
-100% Anonymous Messaging - Send messages without registration or identification
+![FeedbackVault Banner](https://thefeedbackvault.vercel.app/og-image.png)  
 
-AI-Powered Suggestions - Gemini API generates thoughtful message suggestions
+[![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen)](https://thefeedbackvault.vercel.app/)  
+[![GitHub Repository](https://img.shields.io/badge/GitHub-Repository-blue)](https://github.com/m-rayan-hassan/feedbackvault)  
 
-Secure Authentication - NextAuth with credential-based login system
+---
 
-Real-time Management - Easy message management dashboard
+## 🌟 Features  
 
-Modern UI/UX - Beautiful dark/light interface built with Tailwind CSS and Shadcn/UI
+- 💬 **100% Anonymous Messaging** – Send messages without registration or identification  
+- 🤖 **AI-Powered Suggestions** – Gemini API generates thoughtful message suggestions  
+- 🔐 **Secure Authentication** – NextAuth with credential-based login system  
+- ⚡ **Real-time Management** – Easy message management dashboard  
+- 🎨 **Modern UI/UX** – Beautiful dark/light interface built with Tailwind CSS and Shadcn/UI  
+- 📧 **Email Verification** – Resend integration for secure account verification  
 
-Email Verification - Resend integration for secure account verification
+---
 
-🛠️ Tech Stack
-Framework: Next.js (Full-stack)
+## 🛠️ Tech Stack  
 
-Language: TypeScript
+- **Framework**: Next.js 14 (Full-stack)  
+- **Language**: TypeScript  
+- **Database**: MongoDB with Mongoose ODM  
+- **Authentication**: NextAuth.js  
+- **Styling**: Tailwind CSS + Shadcn/UI  
+- **Validation**: Zod  
+- **AI**: Google Gemini API  
+- **Emails**: Resend  
+- **Deployment**: Vercel  
 
-Database: MongoDB with Mongoose ODM
+---
 
-Authentication: NextAuth.js
+## 🚀 Getting Started  
 
-Styling: Tailwind CSS + Shadcn/UI
+### ✅ Prerequisites  
 
-Validation: Zod
+- Node.js **18+**  
+- MongoDB Atlas account (or local MongoDB instance)  
+- Google Gemini API key  
+- Resend API key (for email functionality)  
 
-AI: Google Gemini API
+### 📦 Installation  
 
-Emails: Resend
+1. **Clone the repository**  
+   ```bash
+   git clone https://github.com/m-rayan-hassan/feedbackvault.git
+   cd feedbackvault
 
-Deployment: Vercel
-
-🚀 Getting Started
-Prerequisites
-Node.js 18+
-
-MongoDB Atlas account or local MongoDB instance
-
-Google Gemini API key
-
-Resend API key (for email functionality)
-
-Installation
-Clone the repository
-
-bash
-git clone https://github.com/m-rayan-hassan/feedbackvault.git
-cd feedbackvault
 Install dependencies
 
-bash
 npm install
-Environment Setup
+
+
+Set up environment variables
 Create a .env.local file in the root directory:
 
-env
 MONGODB_URI=your_mongodb_connection_string
 NEXTAUTH_SECRET=your_nextauth_secret
 NEXTAUTH_URL=http://localhost:3000
 GEMINI_API_KEY=your_gemini_api_key
 RESEND_API_KEY=your_resend_api_key
+
+
+👉 You can generate a secret with:
+
+openssl rand -base64 32
+
+
 Run the development server
 
-bash
 npm run dev
+
+
 Open your browser
 Navigate to http://localhost:3000
 
 📖 Usage
-For Receivers
+👤 For Receivers
+
 Create an account on FeedbackVault
 
 Share your unique profile link (e.g., feedbackvault.com/u/yourusername)
 
 Receive anonymous messages from anyone with your link
 
-For Senders
-Visit any user's FeedbackVault link
+📨 For Senders
+
+Visit any user’s FeedbackVault link
 
 Type your anonymous message (no registration needed)
 
 Use AI suggestions for message ideas
 
-Send your message - it's completely untraceable!
+Send your message – it’s completely untraceable!
 
 🏗️ Project Structure
 📦 src
@@ -142,14 +151,10 @@ Send your message - it's completely untraceable!
  ┗ 📜 middleware.ts   # Next.js middleware
 
 🔧 API Endpoints
-POST /api/sign-up - User registration
-
-POST /api/verify-code - Email verification
-
-POST /api/send-message - Send anonymous messages
-
-GET /api/get-messages - Retrieve user messages
-
-POST /api/suggest-messages - AI message suggestions
-
-DELETE /api/delete-message - Delete messages
+Method	Endpoint	Description
+POST	/api/sign-up	User registration
+POST	/api/verify-code	Email verification
+POST	/api/send-message	Send anonymous messages
+GET	/api/get-messages	Retrieve user messages
+POST	/api/suggest-messages	AI message suggestions
+DELETE	/api/delete-message	Delete messages
