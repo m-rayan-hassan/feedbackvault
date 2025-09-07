@@ -2,12 +2,8 @@
 
 An anonymous messaging platform built with **Next.js** that allows users to receive honest feedback without revealing identities. Send and receive messages completely anonymously!  
 
-![FeedbackVault Banner](https://thefeedbackvault.vercel.app/og-image.png)  
+![FeedbackVault Banner](https://thefeedbackvault.vercel.app)  
 
-[![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen)](https://thefeedbackvault.vercel.app/)  
-[![GitHub Repository](https://img.shields.io/badge/GitHub-Repository-blue)](https://github.com/m-rayan-hassan/feedbackvault)  
-
----
 
 ## 🌟 Features  
 
@@ -22,7 +18,7 @@ An anonymous messaging platform built with **Next.js** that allows users to rece
 
 ## 🛠️ Tech Stack  
 
-- **Framework**: Next.js 14 (Full-stack)  
+- **Framework**: Next.js (Full-stack)  
 - **Language**: TypeScript  
 - **Database**: MongoDB with Mongoose ODM  
 - **Authentication**: NextAuth.js  
@@ -49,55 +45,58 @@ An anonymous messaging platform built with **Next.js** that allows users to rece
    ```bash
    git clone https://github.com/m-rayan-hassan/feedbackvault.git
    cd feedbackvault
+   ```
 
-Install dependencies
+2. **Install dependencies**  
+   ```bash
+   npm install
+   ```
 
-npm install
+3. **Set up environment variables**  
+   Create a `.env.local` file in the root directory:  
+   ```env
+   MONGODB_URI=your_mongodb_connection_string
+   NEXTAUTH_SECRET=your_nextauth_secret
+   NEXTAUTH_URL=http://localhost:3000
+   GEMINI_API_KEY=your_gemini_api_key
+   RESEND_API_KEY=your_resend_api_key
+   ```
 
+   👉 You can generate a secret with:  
+   ```bash
+   openssl rand -base64 32
+   ```
 
-Set up environment variables
-Create a .env.local file in the root directory:
+4. **Run the development server**  
+   ```bash
+   npm run dev
+   ```
 
-MONGODB_URI=your_mongodb_connection_string
-NEXTAUTH_SECRET=your_nextauth_secret
-NEXTAUTH_URL=http://localhost:3000
-GEMINI_API_KEY=your_gemini_api_key
-RESEND_API_KEY=your_resend_api_key
+5. **Open your browser**  
+   Navigate to [http://localhost:3000](http://localhost:3000)
 
+---
 
-👉 You can generate a secret with:
+## 📖 Usage  
 
-openssl rand -base64 32
+### 👤 For Receivers  
 
+1. Create an account on FeedbackVault  
+2. Share your unique profile link (e.g., `feedbackvault.com/u/yourusername`)  
+3. Receive anonymous messages from anyone with your link  
 
-Run the development server
+### 📨 For Senders  
 
-npm run dev
+1. Visit any user's FeedbackVault link  
+2. Type your anonymous message (no registration needed)  
+3. Use AI suggestions for message ideas  
+4. Send your message - it's completely untraceable!  
 
+---
 
-Open your browser
-Navigate to http://localhost:3000
+## 🏗️ Project Structure  
 
-📖 Usage
-👤 For Receivers
-
-Create an account on FeedbackVault
-
-Share your unique profile link (e.g., feedbackvault.com/u/yourusername)
-
-Receive anonymous messages from anyone with your link
-
-📨 For Senders
-
-Visit any user’s FeedbackVault link
-
-Type your anonymous message (no registration needed)
-
-Use AI suggestions for message ideas
-
-Send your message – it’s completely untraceable!
-
-🏗️ Project Structure
+```
 📦 src
  ┣ 📂 app
  ┃ ┣ 📂 (app)          # Protected routes
@@ -149,12 +148,8 @@ Send your message – it’s completely untraceable!
  ┃ ┗ 📜 next-auth.d.ts
  ┣ 📜 messages.json   # Sample messages
  ┗ 📜 middleware.ts   # Next.js middleware
+```
 
-🔧 API Endpoints
-Method	Endpoint	Description
-POST	/api/sign-up	User registration
-POST	/api/verify-code	Email verification
-POST	/api/send-message	Send anonymous messages
-GET	/api/get-messages	Retrieve user messages
-POST	/api/suggest-messages	AI message suggestions
-DELETE	/api/delete-message	Delete messages
+---
+
+⭐️ Star this repo if you found it helpful!
